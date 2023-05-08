@@ -1,12 +1,12 @@
 class LinkedList {
-  head: ListNode | null = null;
-  length: number = 0;
+  private head: ListNode | null = null;
+  private length: number = 0;
 
   constructor() {
     this.head = null;
   }
 
-  add(value: number): void {
+  public add(value: number): void {
     const newNode: ListNode = new ListNode(value);
     if (!this.head) {
       this.head = newNode;
@@ -20,24 +20,64 @@ class LinkedList {
     this.length++;
   }
 
-  remove(): void {}
+  public remove(): void {
+    let current: ListNode | null = this.head;
+    if (!this.head) {
+      console.log(`No hay elementos que borrar 'length: ${this.length}'`);
+      return;
+    }
+
+    if (current && !current.next) {
+      this.head = null;
+    } else {
+      while (current?.next?.next) {
+        current = current.next;
+      }
+      if (current?.next) {
+        current.next = null;
+      }
+    }
+    this.length--;
+  }
+
+  public search(
+    parameter: number | ((number: number | null) => boolean)
+  ): number | undefined {
+    if (!this.head) {
+      console.log('La lista está vacía, no hay ningún elemento para buscar.');
+      return;
+    }
+    let current = this.head;
+    if (typeof parameter === 'function') {
+      if (parameter(current.data)) {
+        return Number(current.data);
+      }
+    } else if (current.data === parameter) {
+      return current.data;
+    }
+
+    while (current.next) {
+      if (typeof parameter === 'function') {
+        if (parameter(current.next.data)) {
+          return Number(current.next.data);
+        }
+      } else if (current.next.data === Number(parameter)) {
+        return current.next.data;
+      }
+      current = current.next;
+    }
+
+    console.log('No se encontraron coincidencias en la búsqueda');
+    return;
+  }
 }
 
 class ListNode {
-  data: number | null = null;
-  next: ListNode | null = null;
+  public data: number | null = null;
+  public next: ListNode | null = null;
 
   constructor(value: number) {
     this.data = value;
     this.next = null;
   }
 }
-
-const list = new LinkedList();
-
-list.add(5);
-list.add(8);
-list.add(45);
-list.add(30);
-
-console.log(list);
