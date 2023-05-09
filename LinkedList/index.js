@@ -63,6 +63,7 @@ var LinkedList = /** @class */ (function () {
         console.log('No se encontraron coincidencias en la búsqueda');
         return;
     };
+    //Metodo que ordena la lista de menor a mayor si se le pasa como argumento un string '-' o de mayor a menor si se me pasa un '+':
     LinkedList.prototype.order = function (value) {
         if (!this.head || !this.head.next) {
             console.log('No se puede ordenar una lista vacía o que solo tiene un elemento');
@@ -77,9 +78,10 @@ var LinkedList = /** @class */ (function () {
         var sort = value === '-' ? arr.sort(function (a, b) { return a - b; }) : arr.sort(function (a, b) { return b - a; });
         this.head = null;
         for (var i = 0; i < sort.length; i++) {
-            this.add(arr[i]);
+            this.add(sort[i]);
         }
     };
+    //Metodo que solo retorna la longitud de la lista
     LinkedList.prototype.length = function () {
         if (!this.head) {
             console.log('0');
@@ -105,13 +107,3 @@ var ListNode = /** @class */ (function () {
     }
     return ListNode;
 }());
-var list = new LinkedList();
-list.add(10);
-list.add(36);
-list.add(3);
-list.add(1);
-list.add(8);
-list.add(5);
-list.add(4);
-list.order('-');
-console.log(list);

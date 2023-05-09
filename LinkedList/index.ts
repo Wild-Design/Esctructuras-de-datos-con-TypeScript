@@ -85,7 +85,7 @@ class LinkedList {
       value === '-' ? arr.sort((a, b) => a - b) : arr.sort((a, b) => b - a);
     this.head = null;
     for (let i: number = 0; i < sort.length; i++) {
-      this.add(arr[i]);
+      this.add(sort[i]);
     }
   }
 
