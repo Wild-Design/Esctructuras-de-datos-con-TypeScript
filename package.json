@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon ./LinkedList/index.js"
+    "start": "nodemon ./BinarySearchTree/index.js"
   },
   "keywords": [],
   "author": "",
