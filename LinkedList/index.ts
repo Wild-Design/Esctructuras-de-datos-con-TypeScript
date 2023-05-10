@@ -8,9 +8,8 @@ class LinkedList {
   //Metodo para agregar un elemento al final de la lista:
   public add(value: number): void {
     const newNode: ListNode = new ListNode(value);
-    if (!this.head) {
-      this.head = newNode;
-    } else {
+    if (!this.head) this.head = newNode;
+    else {
       let current: ListNode = this.head;
       while (current.next) {
         current = current.next;
@@ -20,47 +19,34 @@ class LinkedList {
   }
 
   //Metodo para remover elemento al final de la lista:
-  public remove(): void {
+  public remove(): string | void {
     let current: ListNode | null = this.head;
-    if (!this.head) {
-      console.log(`No hay elementos que borrar 'length: ${this.length}'`);
-      return;
-    }
+    if (!this.head)
+      return `No hay elementos que borrar 'length: ${this.length}'`;
 
-    if (current && !current.next) {
-      this.head = null;
-    } else {
+    if (current && !current.next) this.head = null;
+    else
       while (current?.next?.next) {
         current = current.next;
       }
-      if (current?.next) {
-        current.next = null;
-      }
-    }
+    if (current?.next) current.next = null;
   }
 
   //Metodo que busca un numero introducido y lo retorna si lo encuentra o también puede resivir una función CB que al devolver true sobre algún elemento de la lista lo retorna.
   public search(
     parameter: number | ((number: number | null) => boolean)
-  ): number | undefined {
-    if (!this.head) {
-      console.log('La lista está vacía, no hay ningún elemento para buscar.');
-      return;
-    }
+  ): number | string | void {
+    if (!this.head)
+      return 'La lista está vacía, no hay ningún elemento para buscar.';
     let current = this.head;
     while (current) {
       if (typeof parameter === 'function') {
-        if (parameter(current.data)) {
-          return Number(current.data);
-        }
+        if (parameter(current.data)) return Number(current.data);
       } else if (current.data === Number(parameter)) {
         return current.data;
       }
-      if (current.next) {
-        current = current.next;
-      } else {
-        break;
-      }
+      if (current.next) current = current.next;
+      else break;
     }
 
     console.log('No se encontraron coincidencias en la búsqueda');
@@ -68,13 +54,9 @@ class LinkedList {
   }
 
   //Metodo que ordena la lista de menor a mayor si se le pasa como argumento un string '-' o de mayor a menor si se me pasa un '+':
-  public order(value: '-' | '+'): void {
-    if (!this.head || !this.head.next) {
-      console.log(
-        'No se puede ordenar una lista vacía o que solo tiene un elemento'
-      );
-      return;
-    }
+  public order(value: '-' | '+'): string | void {
+    if (!this.head || !this.head.next)
+      return 'No se puede ordenar una lista vacía o que solo tiene un elemento';
     let current: ListNode | null = this.head;
     let arr: number[] = [];
     while (current) {
@@ -91,18 +73,13 @@ class LinkedList {
 
   //Metodo que solo retorna la longitud de la lista
   length(): number {
-    if (!this.head) {
-      console.log('0');
-
-      return 0;
-    }
+    if (!this.head) return 0;
     let current: ListNode | null = this.head;
     let length: number = 0;
     while (current) {
       length++;
       current = current.next;
     }
-    console.log(length);
     return length;
   }
 }
